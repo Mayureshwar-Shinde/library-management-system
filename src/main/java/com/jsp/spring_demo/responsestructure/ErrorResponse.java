@@ -1,5 +1,11 @@
 package com.jsp.spring_demo.responsestructure;
 
-public class ErrorResponse {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@AllArgsConstructor
+@Getter
+public class ErrorResponse {
+	private String error;
 }
+
