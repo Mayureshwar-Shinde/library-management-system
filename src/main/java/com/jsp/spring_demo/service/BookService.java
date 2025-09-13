@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jsp.spring_demo.dto.BookDTO;
 import com.jsp.spring_demo.entity.Book;
+import com.jsp.spring_demo.exception.DoesNotExistException;
 import com.jsp.spring_demo.repository.BookRepository;
 
 
@@ -27,6 +28,12 @@ public class BookService {
 			bookDTOs.add(mapToDTO(book));
 		}
 		return bookDTOs;
+	}
+	
+	public BookDTO find(int id) {
+		Book book = bookRepository.findById(id)
+				.orElseThrow(() -> new DoesNotExistException("Book with ID: " + id + " does not exist."));
+		return mapToDTO(book);
 	}
 	
 	

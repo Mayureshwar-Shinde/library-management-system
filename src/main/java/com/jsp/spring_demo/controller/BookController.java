@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,6 +29,12 @@ public class BookController {
 		ApiResponse<List<BookDTO>> apiResponse = new ApiResponse<>(HttpStatus.OK.value(), bookService.findAll(),
 				"Books fetched successfully.");
 		return ResponseEntity.ok(apiResponse);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ApiResponse<BookDTO>> getBook(@PathVariable int id) {
+		return ResponseEntity.ok(new ApiResponse<BookDTO>(HttpStatus.OK.value(), bookService.find(id),
+				"Book fetched successfully."));
 	}
 }
 
