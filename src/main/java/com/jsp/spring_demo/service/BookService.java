@@ -48,6 +48,12 @@ public class BookService {
 		return mapToDTO(bookRepository.save(mapToEntity(book, bookDTO)));
 	}
 	
+	public void deleteBook(int id) {
+		Book book = bookRepository.findById(id).orElseThrow(
+				() -> new DoesNotExistException("Book with ID: " + id + " does not exist."));
+		bookRepository.delete(book);
+	}
+	
 	
 	public BookDTO mapToDTO(Book book) {
 		BookDTO bookDTO = new BookDTO();
