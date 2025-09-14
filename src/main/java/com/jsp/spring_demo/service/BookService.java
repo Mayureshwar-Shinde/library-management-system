@@ -41,7 +41,14 @@ public class BookService {
 	public BookDTO createBook(BookDTO bookDTO) {
 		return mapToDTO(bookRepository.save(mapToEntity(new Book(), bookDTO)));
 	}
-
+	
+	public BookDTO updateBook(BookDTO bookDTO, int id) {
+		Book book = bookRepository.findById(id).orElseThrow(
+				() -> new DoesNotExistException("Book with ID: " + id + " does not exist."));
+		return mapToDTO(bookRepository.save(mapToEntity(book, bookDTO)));
+	}
+	
+	
 	public BookDTO mapToDTO(Book book) {
 		BookDTO bookDTO = new BookDTO();
 		bookDTO.setId(book.getId());
@@ -49,7 +56,6 @@ public class BookService {
 		bookDTO.setAuthor(book.getAuthor());
 		bookDTO.setDescription(book.getDescription());
 		bookDTO.setLibraryId(book.getLibrary() == null ? null : book.getLibrary().getId());
-
 		return bookDTO;
 	}
 
