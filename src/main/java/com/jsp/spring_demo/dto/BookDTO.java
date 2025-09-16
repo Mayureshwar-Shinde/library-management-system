@@ -8,6 +8,6 @@ public class BookDTO {
 	private String name;
 	private String author;
 	private String description;
-	private Integer LibraryId;
+	private Integer libraryId;
 }
 
