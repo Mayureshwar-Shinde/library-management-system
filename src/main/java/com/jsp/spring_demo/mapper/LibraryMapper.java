@@ -1,6 +1,7 @@
 package com.jsp.spring_demo.mapper;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ public class LibraryMapper {
 	
 	public LibraryDTO toDTO(Library library) {
 		LibraryDTO libraryDTO = new LibraryDTO();
+		
 		libraryDTO.setId(library.getId());
 		libraryDTO.setName(library.getName());
 		libraryDTO.setLocation(library.getLocation());
@@ -33,5 +35,13 @@ public class LibraryMapper {
 		libraryDTO.setBooks(booksDTO);
 		
 		return libraryDTO;
+	}
+	
+	public Library toEntity(LibraryDTO libraryDTO) {
+		Library library = new Library();
+		library.setName(libraryDTO.getName());
+		library.setLocation(libraryDTO.getLocation());
+		library.setBooks(new HashSet<Book>());
+		return library;
 	}
 }

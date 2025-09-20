@@ -16,25 +16,30 @@ import com.jsp.spring_demo.repository.LibraryRepository;
 public class LibraryService {
 	private final LibraryRepository libraryRepository;
 	private final LibraryMapper libraryMapper;
-	
+
 	@Autowired
 	public LibraryService(LibraryRepository libraryRepository, LibraryMapper libraryMapper) {
 		this.libraryRepository = libraryRepository;
 		this.libraryMapper = libraryMapper;
 	}
-	
+
 	public List<LibraryDTO> findAll() {
 		List<Library> libraries = libraryRepository.findAll();
 		List<LibraryDTO> librariesDTO = new ArrayList<>();
-		for(Library library : libraries) {
+		for (Library library : libraries) {
 			librariesDTO.add(libraryMapper.toDTO(library));
 		}
 		return librariesDTO;
 	}
-	
+
 	public LibraryDTO find(int id) {
-		Library library = libraryRepository.findById(id).orElseThrow(
-				() -> new DoesNotExistException("Library with ID: " + id + " does not exist."));
+		Library library = libraryRepository.findById(id)
+				.orElseThrow(() -> new DoesNotExistException("Library with ID: " + id + " does not exist."));
+		return libraryMapper.toDTO(library);
+	}
+
+	public LibraryDTO createLibrary(LibraryDTO libraryDTO) {
+		Library library = libraryRepository.save(libraryMapper.toEntity(libraryDTO));
 		return libraryMapper.toDTO(library);
 	}
 }

@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,5 +39,13 @@ public class LibraryController {
 		ApiResponse<LibraryDTO> apiResponse = new ApiResponse<>(HttpStatus.OK.value(), libraryService.find(id),
 				"Library fetched successfully.");
 		return ResponseEntity.ok(apiResponse);
+	}
+	
+	@PostMapping
+	public ResponseEntity<ApiResponse<LibraryDTO>> createLibrary(@RequestBody LibraryDTO libraryDTO) {
+		LibraryDTO createdLibraryDTO = libraryService.createLibrary(libraryDTO);
+		ApiResponse<LibraryDTO> apiResponse = new ApiResponse<>(HttpStatus.CREATED.value(), createdLibraryDTO,
+				"Library created successfully.");
+		return new ResponseEntity<ApiResponse<LibraryDTO>> (apiResponse, HttpStatus.CREATED);
 	}
 }
