@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,14 @@ public class LibraryController {
 	public ResponseEntity<ApiResponse<List<LibraryDTO>>> getAllLibraries() {
 		List<LibraryDTO> librariesDTO = libraryService.findAll();
 		ApiResponse<List<LibraryDTO>> apiResponse = new ApiResponse<>(HttpStatus.OK.value(), librariesDTO,
-				"Records fetched successfully.");
+				"Libraries fetched successfully.");
+		return ResponseEntity.ok(apiResponse);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ApiResponse<LibraryDTO>> getLibrary(@PathVariable int id) {
+		ApiResponse<LibraryDTO> apiResponse = new ApiResponse<>(HttpStatus.OK.value(), libraryService.find(id),
+				"Library fetched successfully.");
 		return ResponseEntity.ok(apiResponse);
 	}
 }

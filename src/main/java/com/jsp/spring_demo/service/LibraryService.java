@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jsp.spring_demo.dto.LibraryDTO;
 import com.jsp.spring_demo.entity.Library;
+import com.jsp.spring_demo.exception.DoesNotExistException;
 import com.jsp.spring_demo.mapper.LibraryMapper;
 import com.jsp.spring_demo.repository.LibraryRepository;
 
@@ -29,5 +30,11 @@ public class LibraryService {
 			librariesDTO.add(libraryMapper.toDTO(library));
 		}
 		return librariesDTO;
+	}
+	
+	public LibraryDTO find(int id) {
+		Library library = libraryRepository.findById(id).orElseThrow(
+				() -> new DoesNotExistException("Library with ID: " + id + " does not exist."));
+		return libraryMapper.toDTO(library);
 	}
 }
