@@ -44,4 +44,10 @@ public class LibraryMapper {
 		library.setBooks(new HashSet<Book>());
 		return library;
 	}
+	
+	public Library updateEntity(Library library, LibraryDTO libraryDTO) {
+		library.setName(libraryDTO.getName());
+		library.setLocation(libraryDTO.getLocation());
+		return library;
+	}
 }
