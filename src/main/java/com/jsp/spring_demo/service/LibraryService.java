@@ -49,4 +49,10 @@ public class LibraryService {
 		Library updatedLibrary = libraryRepository.save(libraryMapper.updateEntity(library, libraryDTO));
 		return libraryMapper.toDTO(updatedLibrary);
 	}
+	
+	public void deleteLibrary(int id) {
+		Library library = libraryRepository.findById(id)
+				.orElseThrow(() -> new DoesNotExistException("Library with ID: " + id + " does not exist"));
+		libraryRepository.delete(library);
+	}
 }
