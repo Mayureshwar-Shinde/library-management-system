@@ -9,18 +9,23 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Library {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	@Column(nullable = false)
 	private String name;
+	
 	@Column(nullable = false)
 	private String location;
+	
 	@OneToMany(mappedBy = "library", cascade = CascadeType.REMOVE)
 	private Set<Book> books;
 }

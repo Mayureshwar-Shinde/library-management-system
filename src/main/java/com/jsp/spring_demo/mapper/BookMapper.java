@@ -16,7 +16,8 @@ public class BookMapper {
 		bookDTO.setName(book.getName());
 		bookDTO.setAuthor(book.getAuthor());
 		bookDTO.setDescription(book.getDescription());
-		bookDTO.setLibraryId(book.getLibrary() == null ? null : book.getLibrary().getId());
+		Library library = book.getLibrary();
+		bookDTO.setLibraryId(library == null ? null : library.getId());
 		return bookDTO;
 	}
 	
@@ -25,7 +26,7 @@ public class BookMapper {
 		updateEntity(book, bookDTO, library);
 		return book;
 	}
-
+	
 	public Book updateEntity(Book book, BookDTO bookDTO, Library library) {
 		book.setName(bookDTO.getName());
 		book.setAuthor(bookDTO.getAuthor());

@@ -39,8 +39,7 @@ public class LibraryMapper {
 	
 	public Library toEntity(LibraryDTO libraryDTO) {
 		Library library = new Library();
-		library.setName(libraryDTO.getName());
-		library.setLocation(libraryDTO.getLocation());
+		updateEntity(library, libraryDTO);
 		library.setBooks(new HashSet<Book>());
 		return library;
 	}
